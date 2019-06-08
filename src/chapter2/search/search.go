@@ -9,7 +9,7 @@ import (
 var matchers = make(map[string]Matcher)
 
 // Run执行搜索逻辑
-func Run(searchTerm string){
+func Run(searchTerm string) {
 	// 获取需要搜索的数据源
 	feeds, err := RetrieveFeeds()
 	if err != nil {
@@ -28,7 +28,7 @@ func Run(searchTerm string){
 
 	// 为每个数据源启动一个goroutine来查找结果
 
-	for _, feed := range feeds{
+	for _, feed := range feeds {
 		// 获取一个匹配器用于查找
 		matcher, exists := matchers[feed.Type]
 		if !exists {
@@ -36,7 +36,7 @@ func Run(searchTerm string){
 		}
 
 		// 启动一个goroutine来执行搜索
-		go func(matcher Matcher, feed *Feed){
+		go func(matcher Matcher, feed *Feed) {
 			Match(matcher, feed, searchTerm, results)
 			waitGroup.Done()
 		}(matcher, feed)
@@ -58,8 +58,8 @@ func Run(searchTerm string){
 }
 
 // Register 调用时， 会注册一个匹配器， 提供给后便的程序使用
-func Register(feedType string, matcher Matcher){
-	if _, exists := matchers[feedType]; exists{
+func Register(feedType string, matcher Matcher) {
+	if _, exists := matchers[feedType]; exists {
 		log.Fatalln(feedType, "Matcher already registered")
 	}
 

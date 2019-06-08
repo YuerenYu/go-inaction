@@ -8,11 +8,11 @@ import (
 )
 
 // init在main之前调用
-func init(){
+func init() {
 	// 将日志输出到标准输出
 	log.SetOutput(os.Stdout)
 }
 
-func main(){
+func main() {
 	search.Run("球队")
 }
