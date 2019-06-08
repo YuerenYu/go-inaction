@@ -3,20 +3,22 @@ package search
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
 )
 
-const dataFile  = "/Users/yyr/go/src/go-inaction/src/chapter2/data/data.json"
+const dataFile = "src/chapter2/data/data.json"
 
 type Feed struct {
-	Name	string `json:"site"`
-	URI		string `json:"link"`
-	Type	string `json:"type"`
+	Name string `json:"site"`
+	URI  string `json:"link"`
+	Type string `json:"type"`
 }
 
 // RetrieveFeeds 读取并反序列化源数据文件
-func RetrieveFeeds() ([]*Feed, error){
+func RetrieveFeeds() ([]*Feed, error) {
 	//open file
-	file, err := os.Open(dataFile)
+	filePath, _ := filepath.Abs(dataFile)
+	file, err := os.Open(filePath)
 	if err != nil {
 		return nil, err
 	}
